@@ -431,6 +431,7 @@ section[id] {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+  align-items: stretch;
 }
 
 .service-card {
@@ -438,6 +439,9 @@ section[id] {
   border-radius: 6px;
   overflow: hidden;
   box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .card-top-line {
@@ -448,10 +452,14 @@ section[id] {
 .card-bottom-line {
   height: 5px;
   background: var(--gold);
+  margin-top: 0;
 }
 
 .card-body {
   padding: 28px 22px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-icon {
@@ -501,6 +509,7 @@ section[id] {
 .card-body a {
   color: var(--gold-dark);
   font-weight: 700;
+  margin-top: auto;
 }
 
 /* =========================================================
@@ -800,6 +809,19 @@ section[id] {
 
 .retainer-box li {
   margin-bottom: 8px;
+}
+
+.retainer-tag {
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 16px;
+  padding: 6px 10px;
+  background: var(--gold);
+  color: var(--white);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 /* =========================================================
