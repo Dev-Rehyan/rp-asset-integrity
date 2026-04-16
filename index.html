@@ -8,8 +8,7 @@
     name="description"
     content="RP Asset Integrity offers property maintenance, compliance checks and landlord support services in London. Reliable, professional and efficient."
   />
-
-  <link rel="canonical" href="https://rpassetintegrity.com/">
+  <link rel="canonical" href="https://rpassetintegrity.com/" />
 
   <!-- Title -->
   <title>RP Asset Integrity | Property Maintenance & Compliance London</title>
@@ -105,8 +104,12 @@
           <div class="hero-buttons">
             <a href="#services" class="btn btn-gold">View Compliance Plans</a>
             <a href="#retainer" class="btn btn-outline">Explore Maintenance Services</a>
-            <a href="#contact" class="btn btn-white">Request a Free Consultation</a>
-            <a href="#contact" class="btn btn-white">Request a Free Quote</a>
+            <button type="button" class="btn btn-white" id="openConsultationPopup">
+              Request a Free Consultation
+            </button>
+            <button type="button" class="btn btn-white" id="openEnquiryPopup">
+              Get in Touch
+            </button>
           </div>
         </div>
       </div>
@@ -232,65 +235,72 @@
             </div>
             <div class="card-bottom-line"></div>
           </article>
+
           <article class="service-card">
-  <div class="card-top-line"></div>
-  <div class="card-body">
-    <div class="card-icon">🔧</div>
-    <h3>Handyman Service</h3>
-    <h4>On Demand Support</h4>
-    <p>
-      A reliable, multi skilled service for general property repairs, maintenance, and small improvements. Ideal for quick fixes and ongoing upkeep.
-    </p>
-    <ul>
-      <li>Hourly, half day or full day bookings</li>
-      <li>Flat pack assembly</li>
-      <li>Socket replacement</li>
-      <li>Dripping taps and minor repairs</li>
-    </ul>
-    <a href="#contact">Book a Service</a>
-  </div>
-  <div class="card-bottom-line"></div>
-</article>
+            <div class="card-top-line"></div>
+            <div class="card-body">
+              <div class="card-icon">🔧</div>
+              <h3>Handyman Service</h3>
+              <h4>On Demand Support</h4>
+              <p>
+                A reliable, multi skilled service for general property repairs,
+                maintenance, and small improvements.
+              </p>
+              <ul>
+                <li>Hourly, half day or full day bookings</li>
+                <li>Flat pack assembly</li>
+                <li>Socket replacement</li>
+                <li>Dripping taps and minor repairs</li>
+              </ul>
+              <button type="button" class="service-link-btn" id="openBookingPopup">
+                Book a Service
+              </button>
+            </div>
+            <div class="card-bottom-line"></div>
+          </article>
 
-<article class="service-card">
-  <div class="card-top-line"></div>
-  <div class="card-body">
-    <div class="card-icon">🏗️</div>
-    <h3>Property Refurbishment</h3>
-    <h4>Enhance Your Property</h4>
-    <p>
-      Transform your property into a fully functional, modern, and compliant space. Designed to increase value, appeal, and long term reliability.
-    </p>
-    <ul>
-      <li>Interior refurbishment works</li>
-      <li>Cosmetic upgrades</li>
-      <li>Custom kitchens and bathrooms</li>
-      <li>External improvements</li>
-    </ul>
-    <a href="#projects">View Projects</a>
-  </div>
-  <div class="card-bottom-line"></div>
-</article>
+          <article class="service-card">
+            <div class="card-top-line"></div>
+            <div class="card-body">
+              <div class="card-icon">🏗️</div>
+              <h3>Property Refurbishment</h3>
+              <h4>Enhance Your Property</h4>
+              <p>
+                Transform your property into a fully functional, modern, and compliant space.
+              </p>
+              <ul>
+                <li>Interior refurbishment works</li>
+                <li>Cosmetic upgrades</li>
+                <li>Custom kitchens and bathrooms</li>
+                <li>External improvements</li>
+              </ul>
+              <a href="#projects">View Projects</a>
+            </div>
+            <div class="card-bottom-line"></div>
+          </article>
 
-<article class="service-card">
-  <div class="card-top-line"></div>
-  <div class="card-body">
-    <div class="card-icon">🔑</div>
-    <h3>End of Tenancy</h3>
-    <h4>Pre Planned Property Preparation</h4>
-    <p>
-      We inspect your property up to 2 months before tenancy ends, allowing time to plan and complete all required works for a smooth transition.
-    </p>
-    <ul>
-      <li>Seamless tenant transitions</li>
-      <li>Cosmetic upgrades and repairs</li>
-      <li>Professional cleaning</li>
-      <li>Turn key ready for new tenants</li>
-    </ul>
-    <a href="#contact">Enquire Now</a>
-  </div>
-  <div class="card-bottom-line"></div>
-</article>
+          <article class="service-card">
+            <div class="card-top-line"></div>
+            <div class="card-body">
+              <div class="card-icon">🔑</div>
+              <h3>End of Tenancy</h3>
+              <h4>Pre Planned Property Preparation</h4>
+              <p>
+                We inspect your property up to 2 months before tenancy ends, allowing time
+                to plan and complete all required works for a smooth transition.
+              </p>
+              <ul>
+                <li>Seamless tenant transitions</li>
+                <li>Cosmetic upgrades and repairs</li>
+                <li>Professional cleaning</li>
+                <li>Turn key ready for new tenants</li>
+              </ul>
+              <button type="button" class="service-link-btn" id="openEnquiryPopup2">
+                Enquire Now
+              </button>
+            </div>
+            <div class="card-bottom-line"></div>
+          </article>
         </div>
       </div>
     </section>
@@ -322,7 +332,9 @@
               <li>Mould and damp visual check</li>
               <li>Site maintenance inspection</li>
             </ul>
-            <a href="#contact" class="btn btn-gold small-btn">Enquire Now</a>
+            <button type="button" class="btn btn-gold small-btn open-enquiry-btn">
+              Enquire Now
+            </button>
           </article>
 
           <article class="plan-card featured-plan">
@@ -339,7 +351,9 @@
               <li>Landlord property portal</li>
               <li>Maintenance coordination</li>
             </ul>
-            <a href="#contact" class="btn btn-gold small-btn">Enquire Now</a>
+            <button type="button" class="btn btn-gold small-btn open-enquiry-btn">
+              Enquire Now
+            </button>
           </article>
 
           <article class="plan-card">
@@ -356,7 +370,10 @@
               <li>2 hours of prepaid labour</li>
               <li>Fire door safety checks</li>
             </ul>
-            <a href="#contact" class="btn btn-gold small-btn">Enquire Now</a>
+            <button type="button" class="btn btn-gold small-btn open-enquiry-btn">
+              Enquire Now
+            </button>
+          </article>
         </div>
 
         <p class="pricing-note">
@@ -408,7 +425,7 @@
 
           <article class="project-card" data-category="flooring">
             <div class="project-card-gallery">
-              <img src="./assets/photos/B51127FE-6C4D-4317-ABD7-C064860C5E60_4_5005_c.jpeg" alt="Flooring project 1" class="project-img" data-index="0" />
+              <img src="./assets/photos/FF37D08C-0C8A-4A4F-8B2F-2A3F6B155D59_4_5005_c.jpeg" alt="Flooring project 1" class="project-img" data-index="0" />
               <img src="./assets/photos/WhatsApp Image 2022-11-25 at 3.54.28 PM.jpeg" alt="Flooring project 2" class="project-img" data-index="1" />
               <img src="./assets/photos/1C16FD80-C67C-44B6-BBDF-7B3768313F3B_4_5005_c.jpeg" alt="Flooring project 3" class="project-img" data-index="2" />
               <img src="./assets/photos/90614986-C1F0-4F64-AD17-215BC5C407E5_4_5005_c.jpeg" alt="Flooring project 4" class="project-img" data-index="3" />
@@ -461,25 +478,27 @@
         </div>
 
         <div class="retainer-box">
-  <span class="retainer-tag">Most Recommended</span>
-  <h3>Complete Property Care Package</h3>
-  <p class="plan-price">From £100 pcm / £1,200 annually</p>
-  <p>
-    Designed for landlords and letting agents who want a trusted partner to manage
-    maintenance issues, support tenants, monitor compliance responsibilities, and
-    keep accurate records of works carried out.
-  </p>
-  <ul>
-    <li>Full Compliance Oversight</li>
-    <li>Tenant issue handling for maintenance matters</li>
-    <li>Discretionary spend amount</li>
-    <li>12 hours of free handyman labour per year</li>
-    <li>24 / 7 hour response time</li>
-    <li>Secure key holding and tracking</li>
-    <li>10% off compliant remedial work</li>
-  </ul>
-  <a href="#contact" class="btn btn-gold full-width-btn">Enquire Now</a>
-</div>
+          <span class="retainer-tag">Most Recommended</span>
+          <h3>Complete Property Care Package</h3>
+          <p class="plan-price">From £100 pcm / £1,200 annually</p>
+          <p>
+            Designed for landlords and letting agents who want a trusted partner to manage
+            maintenance issues, support tenants, monitor compliance responsibilities, and
+            keep accurate records of works carried out.
+          </p>
+          <ul>
+            <li>Full Compliance Oversight</li>
+            <li>Tenant issue handling for maintenance matters</li>
+            <li>Discretionary spend amount</li>
+            <li>12 hours of free handyman labour per year</li>
+            <li>24 / 7 response time</li>
+            <li>Secure key holding and tracking</li>
+            <li>10% off compliant remedial work</li>
+          </ul>
+          <button type="button" class="btn btn-gold full-width-btn open-enquiry-btn">
+            Enquire Now
+          </button>
+        </div>
 
         <p class="pricing-note">
           All pricing shown is a guide only and may vary depending on property type, scope
@@ -625,9 +644,7 @@
 
         <div class="founder-grid">
           <article class="founder-card">
-            <div class="founder-image">
-              <!-- <img src="assets/photos/483ECF3B-2A7F-4077-B47B-B0E74A2982F4_4_5005_c.jpeg" alt="Philip"> -->
-            </div>
+            <div class="founder-image"></div>
             <div class="founder-info">
               <h3>Philip Demetriou | Managing Director</h3>
               <p>
@@ -640,9 +657,7 @@
           </article>
 
           <article class="founder-card">
-            <div class="founder-image">
-              <!-- <img src="assets/photos/37203707-9B44-478A-83D2-726953E56D93_4_5005_c.jpeg" alt="Rehyan"> -->
-            </div>
+            <div class="founder-image"></div>
             <div class="founder-info">
               <h3>Rehyan Rhoden | Operations Manager</h3>
               <p>
@@ -669,8 +684,12 @@
         </p>
 
         <div class="hero-buttons cta-buttons">
-          <a href="#contact" class="btn btn-gold">Request a Quote</a>
-          <a href="#contact" class="btn btn-white">Book a Consultation</a>
+          <button type="button" class="btn btn-gold" id="openEnquiryPopup3">
+            Get in Touch
+          </button>
+          <button type="button" class="btn btn-white" id="openConsultationPopup2">
+            Request a Free Consultation
+          </button>
         </div>
       </div>
     </section>
@@ -681,7 +700,6 @@
         <span><a href="tel:+442039180504">📞 02039180504</a></span>
         <span><a href="https://www.instagram.com/rp_asset_integrity/" target="_blank" rel="noopener noreferrer">📸 @rpassetintegrity</a></span>
         <span><a href="mailto:rehyan@rpassetintegrity.com">✉️ rehyan@rpassetintegrity.com</a></span>
-        <!-- <span><a href="privacy.html" target="_blank">Privacy Policy</a></span> -->
       </div>
     </section>
 
@@ -689,7 +707,7 @@
     <footer class="site-footer">
       <div class="container footer-inner single-column">
         <p>
-          <span><a href="privacy.html" class="footer-policy-link">Privacy Policy</a></span> <br />
+          <span><a href="privacy.html" class="footer-policy-link">Privacy Policy</a></span><br />
           © 2026 RP Asset Integrity Ltd. All rights reserved.<br />
           Company Number: 17120651<br />
           Company Address: Suite H, Hollies House, 230 High Street, Potters Bar, Hertfordshire, EN6 5BL
@@ -717,15 +735,85 @@
   <div class="project-lightbox" id="projectLightbox">
     <button class="lightbox-close" id="lightboxClose" aria-label="Close gallery" type="button">&times;</button>
     <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" aria-label="Previous image" type="button">&#10094;</button>
-
     <div class="lightbox-content">
       <img src="" alt="" id="lightboxImage" />
     </div>
-
     <button class="lightbox-arrow lightbox-next" id="lightboxNext" aria-label="Next image" type="button">&#10095;</button>
   </div>
 
+  <!-- Consultation Choice Popup -->
+  <div class="site-popup" id="consultationPopup">
+    <div class="site-popup-box">
+      <button class="site-popup-close" data-close-popup="consultationPopup" type="button">&times;</button>
+      <h2>Request a Free Consultation</h2>
+      <p class="site-popup-text">Choose how you would like to get in touch.</p>
+
+      <div class="consultation-options">
+        <a href="tel:+442039180504" class="btn btn-gold">By Phone</a>
+        <a href="mailto:rehyan@rpassetintegrity.com" class="btn btn-white">By Email</a>
+        <button type="button" class="btn btn-outline-dark" id="openCallbackPopup">
+          Request a Call Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Callback Popup -->
+  <div class="site-popup" id="callbackPopup">
+    <div class="site-popup-box">
+      <button class="site-popup-close" data-close-popup="callbackPopup" type="button">&times;</button>
+      <h2>Request a Call Back</h2>
+      <p class="site-popup-text">Leave your details and we will get back to you.</p>
+
+      <form id="callbackForm">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="tel" name="phone" placeholder="Phone Number" required />
+        <input type="email" name="email" placeholder="Email Address" required />
+        <button type="submit" class="btn btn-gold full-width-btn">Send Request</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Enquiry Popup -->
+  <div class="site-popup" id="enquiryPopup">
+    <div class="site-popup-box">
+      <button class="site-popup-close" data-close-popup="enquiryPopup" type="button">&times;</button>
+      <h2>Get in Touch</h2>
+      <p class="site-popup-text">Send us your enquiry and we will get back to you.</p>
+
+      <form id="enquiryForm">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Email Address" required />
+        <input type="tel" name="phone" placeholder="Phone Number" />
+        <textarea name="message" rows="5" placeholder="How can we help?" required></textarea>
+        <button type="submit" class="btn btn-gold full-width-btn">Send Enquiry</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Booking Popup -->
+  <div class="site-popup" id="bookingPopup">
+    <div class="site-popup-box">
+      <button class="site-popup-close" data-close-popup="bookingPopup" type="button">&times;</button>
+      <h2>Book a Service</h2>
+      <p class="site-popup-text">Tell us what service you need and your preferred timing.</p>
+
+      <form id="bookingForm">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Email Address" required />
+        <input type="tel" name="phone" placeholder="Phone Number" required />
+        <input type="text" name="service" placeholder="Service Required" required />
+        <textarea name="message" rows="5" placeholder="Preferred date, time, and details" required></textarea>
+        <button type="submit" class="btn btn-gold full-width-btn">Send Booking Request</button>
+      </form>
+    </div>
+  </div>
+
   <!-- Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init("MQ4T1ezQX_aEev8f6");
+</script>
   <script src="script.js"></script>
 </body>
 </html>

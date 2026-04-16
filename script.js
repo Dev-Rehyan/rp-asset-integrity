@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================================
-     SMOOTH SCROLL + ACTIVE NAVIGATION
+     NAVIGATION + BURGER MENU
   ========================================================= */
   const navLinks = document.querySelectorAll(".nav-link");
   const sections = document.querySelectorAll("section[id]");
@@ -44,12 +44,21 @@ document.addEventListener("DOMContentLoaded", () => {
     return header ? header.offsetHeight + 8 : 8;
   }
 
-  function closeMobileMenu() {
+  function closeMenu() {
     if (menuToggle && mainNav) {
       menuToggle.classList.remove("active");
       mainNav.classList.remove("open");
-      document.body.classList.remove("menu-open");
       menuToggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("menu-open");
+    }
+  }
+
+  function openMenu() {
+    if (menuToggle && mainNav) {
+      menuToggle.classList.add("active");
+      mainNav.classList.add("open");
+      menuToggle.setAttribute("aria-expanded", "true");
+      document.body.classList.add("menu-open");
     }
   }
 
@@ -76,8 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateActiveNav() {
+    if (!navLinks.length || !sections.length) return;
+
     const offset = getHeaderOffset();
-    const scrollPosition = window.scrollY + offset + 10;
+    const scrollPosition = window.scrollY + offset + 20;
 
     let currentSectionId = "top";
 
@@ -112,36 +123,50 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       const targetId = href.replace("#", "");
-      closeMobileMenu();
+      closeMenu();
       scrollToSection(targetId);
 
-      setTimeout(updateActiveNav, 450);
+      setTimeout(updateActiveNav, 400);
     });
   });
 
   if (logoLink) {
     logoLink.addEventListener("click", (e) => {
       e.preventDefault();
-      closeMobileMenu();
+      closeMenu();
       scrollToSection("top");
     });
   }
 
   if (menuToggle && mainNav) {
     menuToggle.addEventListener("click", () => {
-      const isOpen = mainNav.classList.toggle("open");
-      menuToggle.classList.toggle("active", isOpen);
-      document.body.classList.toggle("menu-open", isOpen);
-      menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      const isOpen = mainNav.classList.contains("open");
+
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
   }
+
+  document.addEventListener("click", (e) => {
+    if (!menuToggle || !mainNav) return;
+
+    const clickedInsideMenu = mainNav.contains(e.target);
+    const clickedToggle = menuToggle.contains(e.target);
+
+    if (!clickedInsideMenu && !clickedToggle && mainNav.classList.contains("open")) {
+      closeMenu();
+    }
+  });
 
   window.addEventListener("scroll", updateActiveNav);
   window.addEventListener("load", updateActiveNav);
   window.addEventListener("resize", updateActiveNav);
 
   /* =========================================================
-     PROJECT LIGHTBOX GALLERY
+     PROJECT LIGHTBOX
   ========================================================= */
   const projectLightbox = document.getElementById("projectLightbox");
   const lightboxImage = document.getElementById("lightboxImage");
@@ -156,7 +181,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   projectCards.forEach((card) => {
     const category = card.dataset.category;
-
     const images = Array.from(card.querySelectorAll(".project-img")).map((img) => ({
       src: img.src,
       alt: img.alt
@@ -231,20 +255,185 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.addEventListener("keydown", (e) => {
-    if (!projectLightbox || !projectLightbox.classList.contains("active")) return;
+    if (projectLightbox && projectLightbox.classList.contains("active")) {
+      if (e.key === "Escape") {
+        closeLightbox();
+      }
 
-    if (e.key === "Escape") {
-      closeLightbox();
-    }
+      if (e.key === "ArrowRight") {
+        showNextImage();
+      }
 
-    if (e.key === "ArrowRight") {
-      showNextImage();
-    }
-
-    if (e.key === "ArrowLeft") {
-      showPrevImage();
+      if (e.key === "ArrowLeft") {
+        showPrevImage();
+      }
     }
   });
+
+  /* =========================================================
+     SHARED POPUP HELPERS
+  ========================================================= */
+  function openPopup(popup) {
+    if (!popup) return;
+    popup.classList.add("active");
+    document.body.classList.add("menu-open");
+  }
+
+  function closePopup(popup) {
+    if (!popup) return;
+    popup.classList.remove("active");
+
+    const anyPopupStillOpen = document.querySelector(".site-popup.active, .review-popup.active");
+    if (!anyPopupStillOpen && !mainNav?.classList.contains("open")) {
+      document.body.classList.remove("menu-open");
+    }
+  }
+
+  /* =========================================================
+     CONSULTATION / ENQUIRY / BOOKING POPUPS
+  ========================================================= */
+  const consultationPopup = document.getElementById("consultationPopup");
+  const callbackPopup = document.getElementById("callbackPopup");
+  const enquiryPopup = document.getElementById("enquiryPopup");
+  const bookingPopup = document.getElementById("bookingPopup");
+
+  const openConsultationPopup = document.getElementById("openConsultationPopup");
+  const openConsultationPopup2 = document.getElementById("openConsultationPopup2");
+  const openEnquiryPopup = document.getElementById("openEnquiryPopup");
+  const openEnquiryPopup2 = document.getElementById("openEnquiryPopup2");
+  const openEnquiryPopup3 = document.getElementById("openEnquiryPopup3");
+  const openBookingPopup = document.getElementById("openBookingPopup");
+  const openCallbackPopup = document.getElementById("openCallbackPopup");
+  const openEnquiryButtons = document.querySelectorAll(".open-enquiry-btn");
+
+  if (openConsultationPopup) {
+    openConsultationPopup.addEventListener("click", () => openPopup(consultationPopup));
+  }
+
+  if (openConsultationPopup2) {
+    openConsultationPopup2.addEventListener("click", () => openPopup(consultationPopup));
+  }
+
+  if (openEnquiryPopup) {
+    openEnquiryPopup.addEventListener("click", () => openPopup(enquiryPopup));
+  }
+
+  if (openEnquiryPopup2) {
+    openEnquiryPopup2.addEventListener("click", () => openPopup(enquiryPopup));
+  }
+
+  if (openEnquiryPopup3) {
+    openEnquiryPopup3.addEventListener("click", () => openPopup(enquiryPopup));
+  }
+
+  openEnquiryButtons.forEach((button) => {
+    button.addEventListener("click", () => openPopup(enquiryPopup));
+  });
+
+  if (openBookingPopup) {
+    openBookingPopup.addEventListener("click", () => openPopup(bookingPopup));
+  }
+
+  if (openCallbackPopup) {
+    openCallbackPopup.addEventListener("click", () => {
+      closePopup(consultationPopup);
+      openPopup(callbackPopup);
+    });
+  }
+
+  document.querySelectorAll("[data-close-popup]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const popupId = button.getAttribute("data-close-popup");
+      const popup = document.getElementById(popupId);
+      closePopup(popup);
+    });
+  });
+
+  document.querySelectorAll(".site-popup").forEach((popup) => {
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) {
+        closePopup(popup);
+      }
+    });
+  });
+
+  /* =========================================================
+     CALLBACK FORM
+  ========================================================= */
+  const callbackForm = document.getElementById("callbackForm");
+
+  if (callbackForm) {
+    callbackForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      try {
+        await emailjs.sendForm(
+          "service_5jox238",
+          "template_callback",
+          callbackForm
+        );
+
+        alert("Thank you. Your call back request has been sent.");
+        callbackForm.reset();
+        closePopup(callbackPopup);
+      } catch (error) {
+        console.error("Callback form failed:", error);
+        alert("Sorry, something went wrong. Please try again.");
+      }
+    });
+  }
+
+  /* =========================================================
+     ENQUIRY FORM
+  ========================================================= */
+  const enquiryForm = document.getElementById("enquiryForm");
+
+  if (enquiryForm) {
+    enquiryForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      try {
+        await emailjs.sendForm(
+          "service_5jox238",
+          "template_enquiry",
+          enquiryForm
+        );
+
+        alert("Thank you. Your enquiry has been sent.");
+        enquiryForm.reset();
+        closePopup(enquiryPopup);
+      } catch (error) {
+        console.error("Enquiry form failed:", error);
+        alert("Sorry, something went wrong. Please try again.");
+      }
+    });
+  }
+
+  /* =========================================================
+     BOOKING FORM
+  ========================================================= */
+  const bookingForm = document.getElementById("bookingForm");
+
+  if (bookingForm) {
+    bookingForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      try {
+        await emailjs.sendForm(
+          "service_5jox238",
+          "template_booking",
+          bookingForm
+        );
+
+        alert("Thank you. Your booking request has been sent.");
+        bookingForm.reset();
+        closePopup(bookingPopup);
+      } catch (error) {
+        console.error("Booking form failed:", error);
+        alert("Sorry, something went wrong. Please try again.");
+      }
+    });
+  }
 
   /* =========================================================
      REVIEW POPUP
@@ -262,20 +451,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (openReviewBtn && reviewPopup) {
     openReviewBtn.addEventListener("click", () => {
-      reviewPopup.classList.add("active");
+      openPopup(reviewPopup);
     });
   }
 
   if (closeReviewBtn && reviewPopup) {
     closeReviewBtn.addEventListener("click", () => {
-      reviewPopup.classList.remove("active");
+      closePopup(reviewPopup);
     });
   }
 
   if (reviewPopup) {
     reviewPopup.addEventListener("click", (e) => {
       if (e.target === reviewPopup) {
-        reviewPopup.classList.remove("active");
+        closePopup(reviewPopup);
       }
     });
   }
@@ -291,7 +480,7 @@ document.addEventListener("DOMContentLoaded", () => {
           reviewForm
         );
 
-        alert("Thank you for your review!");
+        alert("Thank you for your review.");
         reviewForm.reset();
 
         if (dateInput) {
@@ -299,7 +488,7 @@ document.addEventListener("DOMContentLoaded", () => {
           dateInput.value = today;
         }
 
-        reviewPopup.classList.remove("active");
+        closePopup(reviewPopup);
       } catch (error) {
         console.error("Review submission failed:", error);
         alert("Sorry, something went wrong. Please try again.");
