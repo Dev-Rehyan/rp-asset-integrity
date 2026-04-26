@@ -1,5 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
   /* =========================================================
+     STOP DEFAULT ANCHOR JUMP
+  ========================================================= */
+  function smoothScrollToTarget(targetId) {
+    if (targetId === "top") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+      return;
+    }
+
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const header = document.querySelector(".site-header");
+    const offset = header ? header.offsetHeight + 8 : 8;
+    const position = target.getBoundingClientRect().top + window.scrollY - offset;
+
+    window.scrollTo({
+      top: position,
+      behavior: "smooth"
+    });
+  }
+
+  /* =========================================================
      PRIVACY POPUP
   ========================================================= */
   const privacyPopup = document.getElementById("privacyPopup");
@@ -35,13 +60,37 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================================================= */
   const navLinks = document.querySelectorAll(".nav-link");
   const sections = document.querySelectorAll("section[id]");
-  const logoLink = document.querySelector('.logo[href="#top"]');
   const menuToggle = document.getElementById("menuToggle");
   const mainNav = document.getElementById("mainNav");
+
+  function lockPageScroll() {
+    document.body.classList.add("menu-open");
+    document.documentElement.classList.add("menu-open");
+  }
+
+  function unlockPageScroll() {
+    const anyPopupStillOpen = document.querySelector(".site-popup.active, .review-popup.active");
+    const menuStillOpen = mainNav && mainNav.classList.contains("open");
+    const lightboxStillOpen = document.getElementById("projectLightbox")?.classList.contains("active");
+
+    if (!anyPopupStillOpen && !menuStillOpen && !lightboxStillOpen) {
+      document.body.classList.remove("menu-open");
+      document.documentElement.classList.remove("menu-open");
+    }
+  }
 
   function getHeaderOffset() {
     const header = document.querySelector(".site-header");
     return header ? header.offsetHeight + 8 : 8;
+  }
+
+  function syncMenuPosition() {
+    const header = document.querySelector(".site-header");
+    if (!header || !mainNav) return;
+
+    const headerHeight = header.offsetHeight;
+    mainNav.style.top = `${headerHeight}px`;
+    mainNav.style.height = `calc(100vh - ${headerHeight}px)`;
   }
 
   function closeMenu() {
@@ -49,97 +98,78 @@ document.addEventListener("DOMContentLoaded", () => {
       menuToggle.classList.remove("active");
       mainNav.classList.remove("open");
       menuToggle.setAttribute("aria-expanded", "false");
-      document.body.classList.remove("menu-open");
+      unlockPageScroll();
     }
   }
 
   function openMenu() {
     if (menuToggle && mainNav) {
+      syncMenuPosition();
       menuToggle.classList.add("active");
       mainNav.classList.add("open");
       menuToggle.setAttribute("aria-expanded", "true");
-      document.body.classList.add("menu-open");
+      lockPageScroll();
     }
-  }
-
-  function scrollToSection(targetId) {
-    if (targetId === "top") {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-      return;
-    }
-
-    const targetSection = document.getElementById(targetId);
-    if (!targetSection) return;
-
-    const offset = getHeaderOffset();
-    const targetPosition =
-      targetSection.getBoundingClientRect().top + window.scrollY - offset;
-
-    window.scrollTo({
-      top: targetPosition,
-      behavior: "smooth"
-    });
   }
 
   function updateActiveNav() {
-    if (!navLinks.length || !sections.length) return;
+  const offset = getHeaderOffset();
+  const scrollPosition = window.scrollY + offset + 20;
+  const pageBottom = window.innerHeight + window.scrollY;
+  const documentHeight = document.documentElement.scrollHeight;
 
-    const offset = getHeaderOffset();
-    const scrollPosition = window.scrollY + offset + 20;
+  let currentSectionId = "top";
 
-    let currentSectionId = "top";
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    const sectionId = section.getAttribute("id");
 
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionId = section.getAttribute("id");
-
-      if (scrollPosition >= sectionTop) {
-        currentSectionId = sectionId;
-      }
-    });
-
-    if (window.scrollY < 60) {
-      currentSectionId = "top";
+    if (scrollPosition >= sectionTop) {
+      currentSectionId = sectionId;
     }
+  });
 
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
+  if (window.scrollY < 60) {
+    currentSectionId = "top";
+  }
 
-      if (link.getAttribute("href") === `#${currentSectionId}`) {
-        link.classList.add("active");
-      }
-    });
+  /* force Contact active when near bottom */
+  if (pageBottom >= documentHeight - 80) {
+    currentSectionId = "contact";
   }
 
   navLinks.forEach((link) => {
+    link.classList.remove("active");
+
+    const href = link.getAttribute("href");
+
+    if (href === `#${currentSectionId}`) {
+      link.classList.add("active");
+    }
+  });
+}
+
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", (e) => {
       const href = link.getAttribute("href");
-
-      if (!href || !href.startsWith("#")) return;
-
-      e.preventDefault();
+      if (!href) return;
 
       const targetId = href.replace("#", "");
+      if (!targetId) return;
+
+      e.preventDefault();
       closeMenu();
-      scrollToSection(targetId);
+      smoothScrollToTarget(targetId);
 
       setTimeout(updateActiveNav, 400);
     });
   });
 
-  if (logoLink) {
-    logoLink.addEventListener("click", (e) => {
-      e.preventDefault();
-      closeMenu();
-      scrollToSection("top");
-    });
-  }
-
   if (menuToggle && mainNav) {
-    menuToggle.addEventListener("click", () => {
+    menuToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
       const isOpen = mainNav.classList.contains("open");
 
       if (isOpen) {
@@ -161,9 +191,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  window.addEventListener("scroll", updateActiveNav);
-  window.addEventListener("load", updateActiveNav);
-  window.addEventListener("resize", updateActiveNav);
+  syncMenuPosition();
+  window.addEventListener("scroll", () => {
+    updateActiveNav();
+    syncMenuPosition();
+  });
+  window.addEventListener("load", () => {
+    updateActiveNav();
+    syncMenuPosition();
+  });
+  window.addEventListener("resize", () => {
+    updateActiveNav();
+    syncMenuPosition();
+  });
 
   /* =========================================================
      PROJECT LIGHTBOX
@@ -197,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (projectLightbox) {
           projectLightbox.classList.add("active");
-          document.body.style.overflow = "hidden";
+          lockPageScroll();
         }
       });
     });
@@ -215,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!projectLightbox) return;
 
     projectLightbox.classList.remove("active");
-    document.body.style.overflow = "";
+    unlockPageScroll();
   }
 
   function showNextImage() {
@@ -256,17 +296,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("keydown", (e) => {
     if (projectLightbox && projectLightbox.classList.contains("active")) {
-      if (e.key === "Escape") {
-        closeLightbox();
-      }
-
-      if (e.key === "ArrowRight") {
-        showNextImage();
-      }
-
-      if (e.key === "ArrowLeft") {
-        showPrevImage();
-      }
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") showNextImage();
+      if (e.key === "ArrowLeft") showPrevImage();
     }
   });
 
@@ -276,17 +308,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function openPopup(popup) {
     if (!popup) return;
     popup.classList.add("active");
-    document.body.classList.add("menu-open");
+    lockPageScroll();
   }
 
   function closePopup(popup) {
     if (!popup) return;
     popup.classList.remove("active");
-
-    const anyPopupStillOpen = document.querySelector(".site-popup.active, .review-popup.active");
-    if (!anyPopupStillOpen && !mainNav?.classList.contains("open")) {
-      document.body.classList.remove("menu-open");
-    }
+    unlockPageScroll();
   }
 
   /* =========================================================
@@ -297,52 +325,79 @@ document.addEventListener("DOMContentLoaded", () => {
   const enquiryPopup = document.getElementById("enquiryPopup");
   const bookingPopup = document.getElementById("bookingPopup");
 
-  const openConsultationPopup = document.getElementById("openConsultationPopup");
-  const openConsultationPopup2 = document.getElementById("openConsultationPopup2");
-  const openEnquiryPopup = document.getElementById("openEnquiryPopup");
-  const openEnquiryPopup2 = document.getElementById("openEnquiryPopup2");
-  const openEnquiryPopup3 = document.getElementById("openEnquiryPopup3");
-  const openBookingPopup = document.getElementById("openBookingPopup");
-  const openCallbackPopup = document.getElementById("openCallbackPopup");
+  const openConsultationButtons = document.querySelectorAll(".open-consultation-btn");
   const openEnquiryButtons = document.querySelectorAll(".open-enquiry-btn");
+  const openBookingButtons = document.querySelectorAll(".open-booking-btn");
+  const openCallbackButton = document.getElementById("openCallbackPopup");
+  const closePopupButtons = document.querySelectorAll(".site-popup-close");
 
-  if (openConsultationPopup) {
-    openConsultationPopup.addEventListener("click", () => openPopup(consultationPopup));
+  function closeAllPopups() {
+    [consultationPopup, callbackPopup, enquiryPopup, bookingPopup].forEach((popup) => {
+      if (popup) popup.classList.remove("active");
+    });
+    unlockPageScroll();
   }
 
-  if (openConsultationPopup2) {
-    openConsultationPopup2.addEventListener("click", () => openPopup(consultationPopup));
-  }
-
-  if (openEnquiryPopup) {
-    openEnquiryPopup.addEventListener("click", () => openPopup(enquiryPopup));
-  }
-
-  if (openEnquiryPopup2) {
-    openEnquiryPopup2.addEventListener("click", () => openPopup(enquiryPopup));
-  }
-
-  if (openEnquiryPopup3) {
-    openEnquiryPopup3.addEventListener("click", () => openPopup(enquiryPopup));
-  }
-
-  openEnquiryButtons.forEach((button) => {
-    button.addEventListener("click", () => openPopup(enquiryPopup));
+  openConsultationButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeAllPopups();
+      openPopup(consultationPopup);
+    });
   });
 
-  if (openBookingPopup) {
-    openBookingPopup.addEventListener("click", () => openPopup(bookingPopup));
-  }
+  openEnquiryButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeAllPopups();
+      openPopup(enquiryPopup);
+    });
+  });
 
-  if (openCallbackPopup) {
-    openCallbackPopup.addEventListener("click", () => {
+  openBookingButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeAllPopups();
+      openPopup(bookingPopup);
+    });
+  });
+
+  if (openCallbackButton) {
+    openCallbackButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       closePopup(consultationPopup);
       openPopup(callbackPopup);
     });
   }
 
+  closePopupButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const popupId = button.getAttribute("data-close-popup");
+      const popup = document.getElementById(popupId);
+      closePopup(popup);
+    });
+  });
+
+  [consultationPopup, callbackPopup, enquiryPopup, bookingPopup].forEach((popup) => {
+    if (!popup) return;
+
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) {
+        closePopup(popup);
+      }
+    });
+  });
+
   document.querySelectorAll("[data-close-popup]").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       const popupId = button.getAttribute("data-close-popup");
       const popup = document.getElementById(popupId);
       closePopup(popup);
@@ -357,83 +412,71 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* =========================================================
-     CALLBACK FORM
-  ========================================================= */
-  const callbackForm = document.getElementById("callbackForm");
+/* =========================================================
+   EMAILJS FORMS
+========================================================= */
+const EMAILJS_SERVICE_ID = "service_5jox238";
+const EMAILJS_TEMPLATE_ID = "template_rhmp061";
+// Use ONE EmailJS template for callback, enquiry and booking
 
-  if (callbackForm) {
-    callbackForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
+function handleEmailForm(formId, popup, successMessage) {
+  const form = document.getElementById(formId);
 
-      try {
-        await emailjs.sendForm(
-          "service_5jox238",
-          "template_callback",
-          callbackForm
-        );
+  if (!form) return;
 
-        alert("Thank you. Your call back request has been sent.");
-        callbackForm.reset();
-        closePopup(callbackPopup);
-      } catch (error) {
-        console.error("Callback form failed:", error);
-        alert("Sorry, something went wrong. Please try again.");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const submitButton = form.querySelector("button[type='submit']");
+    const originalText = submitButton ? submitButton.textContent : "";
+
+    if (submitButton) {
+      submitButton.textContent = "Sending...";
+      submitButton.disabled = true;
+    }
+
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        form
+      );
+
+      alert(successMessage);
+      form.reset();
+
+      if (popup) {
+        closePopup(popup);
       }
-    });
-  }
-
-  /* =========================================================
-     ENQUIRY FORM
-  ========================================================= */
-  const enquiryForm = document.getElementById("enquiryForm");
-
-  if (enquiryForm) {
-    enquiryForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      try {
-        await emailjs.sendForm(
-          "service_5jox238",
-          "template_enquiry",
-          enquiryForm
-        );
-
-        alert("Thank you. Your enquiry has been sent.");
-        enquiryForm.reset();
-        closePopup(enquiryPopup);
-      } catch (error) {
-        console.error("Enquiry form failed:", error);
-        alert("Sorry, something went wrong. Please try again.");
+    } catch (error) {
+      console.error(`${formId} failed:`, error);
+      alert("Sorry, something went wrong. Please try again or email us directly.");
+    } finally {
+      if (submitButton) {
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
       }
-    });
-  }
+    }
+  });
+}
 
-  /* =========================================================
-     BOOKING FORM
-  ========================================================= */
-  const bookingForm = document.getElementById("bookingForm");
+handleEmailForm(
+  "callbackForm",
+  callbackPopup,
+  "Thank you. Your call back request has been sent."
+);
 
-  if (bookingForm) {
-    bookingForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
+handleEmailForm(
+  "enquiryForm",
+  enquiryPopup,
+  "Thank you. Your enquiry has been sent."
+);
 
-      try {
-        await emailjs.sendForm(
-          "service_5jox238",
-          "template_booking",
-          bookingForm
-        );
-
-        alert("Thank you. Your booking request has been sent.");
-        bookingForm.reset();
-        closePopup(bookingPopup);
-      } catch (error) {
-        console.error("Booking form failed:", error);
-        alert("Sorry, something went wrong. Please try again.");
-      }
-    });
-  }
+handleEmailForm(
+  "bookingForm",
+  bookingPopup,
+  "Thank you. Your booking request has been sent."
+);
 
   /* =========================================================
      REVIEW POPUP
@@ -450,13 +493,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (openReviewBtn && reviewPopup) {
-    openReviewBtn.addEventListener("click", () => {
+    openReviewBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       openPopup(reviewPopup);
     });
   }
 
   if (closeReviewBtn && reviewPopup) {
-    closeReviewBtn.addEventListener("click", () => {
+    closeReviewBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       closePopup(reviewPopup);
     });
   }
@@ -495,4 +542,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  /* =========================================================
+     ESC KEY CLOSE
+  ========================================================= */
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeMenu();
+      closeAllPopups();
+      closeLightbox();
+      if (reviewPopup) closePopup(reviewPopup);
+    }
+  });
 });

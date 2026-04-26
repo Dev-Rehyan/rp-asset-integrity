@@ -31,17 +31,25 @@ html {
   scroll-behavior: auto;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
 body {
-  padding-top: 0;
+  padding-top: 74px;
   font-family: "Open Sans", sans-serif;
   background: #ececec;
   color: var(--text);
   line-height: 1.6;
 }
 
+html.menu-open,
 body.menu-open {
   overflow: hidden;
+  /* height: 100vh; */
 }
 
 img {
@@ -57,17 +65,28 @@ a {
    LAYOUT
 ========================================================= */
 .page-wrapper {
-  max-width: 1200px;
-  margin: 24px auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
   background: var(--white);
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
   overflow: visible;
 }
 
 .container {
-  width: 92%;
+  width: 100%;
   max-width: 1080px;
   margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.site-header .container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 14px;
+  padding-right: 14px;
 }
 
 /* =========================================================
@@ -111,8 +130,10 @@ a {
    HEADER
 ========================================================= */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 9999;
   background: rgba(255, 255, 255, 0.98);
   border-bottom: 1px solid #e8ebef;
@@ -125,43 +146,62 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 10px 0;
-  position: relative;
+  padding: 4px 0;
+  min-height: 74px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 1px;
   color: inherit;
   flex: 1;
   min-width: 0;
+  overflow: hidden;
+  text-decoration: none;
+  margin-left: -16px;
 }
 
 .logo-img {
-  width: 52px;
-  height: 52px;
+  width: auto;
+  height: 65px;
   object-fit: contain;
   display: block;
   flex-shrink: 0;
+  margin-right: -15px;
+}
+
+.logo-text {
+  min-width: 0;
+  overflow: hidden;
+  margin-left: -2px;
+  padding: 0;
 }
 
 .logo-text h2 {
   font-family: "Montserrat", sans-serif;
-  font-size: 1.05rem;
-  line-height: 1;
+  font-size: 0.95rem;
+  line-height: 1.1;
   font-weight: 800;
   color: var(--navy-dark);
-}
-
-.logo-text p {
-  font-size: 0.62rem;
-  margin-top: 4px;
-  color: var(--gold-dark);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   letter-spacing: 0.5px;
 }
 
+.logo-text p {
+  font-size: 0.52rem;
+  /* margin-top: 4px; */
+  color: var(--gold-dark);
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
 
 /* =========================================================
    NAVIGATION
@@ -204,6 +244,7 @@ a {
   flex-direction: column;
   gap: 6px;
   flex-shrink: 0;
+  margin-left: 8px;
   z-index: 10002;
 }
 
@@ -237,10 +278,10 @@ a {
 ========================================================= */
 .main-nav {
   position: fixed;
-  top: 73px;
+  top: 74px;
   right: 0;
   width: min(360px, 86vw);
-  height: calc(100vh - 73px);
+  height: calc(100vh - 74px);
   background: var(--white);
   border-left: 1px solid #e8ebef;
   box-shadow: -8px 0 24px rgba(0, 0, 0, 0.08);
@@ -723,23 +764,32 @@ a {
   line-height: 1.6;
 }
 
-.popup-close,
+.site-popup-close,
 .review-close {
   position: absolute;
-  top: 10px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
-  background: transparent;
-  font-size: 30px;
+  border-radius: 50%;
+  background: #f1f4f8;
+  font-size: 28px;
+  font-weight: 700;
   line-height: 1;
-  cursor: pointer;
   color: var(--navy-dark);
-  transition: color 0.3s ease;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
-.popup-close:hover,
+.site-popup-close:hover,
 .review-close:hover {
-  color: var(--gold-dark);
+  background: var(--gold);
+  color: var(--white);
+  transform: scale(1.05);
 }
 
 .popup-options {
@@ -802,6 +852,35 @@ a {
   outline: none;
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(182, 148, 75, 0.12);
+}
+
+.service-link-btn {
+  margin-top: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--gold-dark);
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.service-link-btn:hover {
+  color: var(--navy-dark);
+  transform: translateX(3px);
+}
+
+.btn-outline-dark {
+  background: transparent;
+  color: var(--navy-dark);
+  border: 2px solid var(--navy-dark);
+}
+
+.btn-outline-dark:hover {
+  background: var(--navy-dark);
+  color: var(--white);
 }
 
 /* =========================================================
@@ -1151,12 +1230,6 @@ a {
   overflow: hidden;
   box-shadow: var(--shadow);
 }
-
-/* .founder-image {
-  width: 100%;
-  height: 320px;
-  background: #e9edf2;
-} */
 
 .founder-info {
   padding: 24px;
@@ -1604,13 +1677,26 @@ a {
 
 .review-close {
   position: absolute;
-  top: 10px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
-  background: transparent;
-  font-size: 28px;
-  cursor: pointer;
+  border-radius: 50%;
+  background: #f1f4f8;
+  font-size: 24px;
+  font-weight: 700;
   color: var(--navy-dark);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.review-close:hover {
+  background: var(--gold);
+  color: white;
 }
 
 /* =========================================================
@@ -1678,10 +1764,70 @@ a {
 }
 
 @media (max-width: 768px) {
+  .page-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .container,
+  .site-header .container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   .main-nav {
-  width: min(320px, 88vw);
-  right: 0;
-  padding: 14px 18px 24px;
+    width: min(320px, 88vw);
+    padding: 14px 18px 24px;
+  }
+
+  .hero,
+  .hero-content,
+  .hero-image,
+  .hero-overlay,
+  .intro-section,
+  .services-section,
+  .plans-section,
+  .projects-section,
+  .retainer-section,
+  .audit-section,
+  .pricing-section,
+  .why-section,
+  .founders-section,
+  .cta-section,
+  .reviews-section,
+  .review-cta-section,
+  .policy-section {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pricing-table,
+  .policy-card,
+  .site-popup-box,
+  .review-popup-box,
+  .project-card,
+  .service-card,
+  .plan-card,
+  .founder-card,
+  .review-card,
+  .retainer-box {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-text-box,
+  .section-heading,
+  .cta-box,
+  .review-cta-box,
+  .reviews-hero-text {
+    max-width: 100%;
   }
 
   .policy-hero {
@@ -1704,11 +1850,13 @@ a {
 
 @media (max-width: 640px) {
   .page-wrapper {
+    width: 100%;
+    max-width: 100%;
     margin: 0;
   }
 
   .container {
-    width: 90%;
+    width: 100%;
   }
 
   .hero-buttons {
