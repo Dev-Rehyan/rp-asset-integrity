@@ -773,6 +773,19 @@
   <input type="text" name="name" placeholder="Your Name" required />
   <input type="tel" name="phone" placeholder="Phone Number" required />
   <input type="email" name="email" placeholder="Email Address" required />
+  <label class="form-consent">
+  <input type="checkbox" name="consent" value="Agreed" required />
+  <span>
+    I agree to RP Asset Integrity storing my details to respond to my enquiry.
+    See our <a href="privacy.html" target="_blank">Privacy Policy</a>.
+  </span>
+</label>
+
+<p class="form-note">
+  We will only use your details to contact you about your enquiry. We do not share your information.
+</p>
+
+<input type="text" name="website" class="hidden-field" tabindex="-1" autocomplete="off" />
   <button type="submit" class="btn btn-gold full-width-btn">Send Request</button>
 </form>
     </div>
@@ -790,6 +803,19 @@
   <input type="email" name="email" placeholder="Email Address" required />
   <input type="tel" name="phone" placeholder="Phone Number" />
   <textarea name="message" rows="5" placeholder="How can we help?" required></textarea>
+  <label class="form-consent">
+  <input type="checkbox" name="consent" value="Agreed" required />
+  <span>
+    I agree to RP Asset Integrity storing my details to respond to my enquiry.
+    See our <a href="privacy.html" target="_blank">Privacy Policy</a>.
+  </span>
+</label>
+
+<p class="form-note">
+  We will only use your details to contact you about your enquiry. We do not share your information.
+</p>
+
+<input type="text" name="website" class="hidden-field" tabindex="-1" autocomplete="off" />
   <button type="submit" class="btn btn-gold full-width-btn">Send Enquiry</button>
 </form>
     </div>
@@ -810,10 +836,34 @@
   <input type="tel" name="phone" placeholder="Phone Number" required />
   <input type="text" name="service" placeholder="Service Required" required />
   <textarea name="message" rows="5" placeholder="Preferred date, time, and details" required></textarea>
+  <label class="form-consent">
+  <input type="checkbox" name="consent" value="Agreed" required />
+  <span>
+    I agree to RP Asset Integrity storing my details to respond to my enquiry.
+    See our <a href="privacy.html" target="_blank">Privacy Policy</a>.
+  </span>
+</label>
+
+<p class="form-note">
+  We will only use your details to contact you about your enquiry. We do not share your information.
+</p>
+
+<input type="text" name="website" class="hidden-field" tabindex="-1" autocomplete="off" />
   <button type="submit" class="btn btn-gold full-width-btn">Send Booking Request</button>
 </form>
     </div>
   </div>
+
+<!-- Success Popup -->
+  <div class="success-popup" id="successPopup">
+  <div class="success-popup-box">
+    <h2>Thank You</h2>
+    <p id="successMessage">Your message has been sent.</p>
+    <button type="button" class="btn btn-gold" id="closeSuccessPopup">
+      Close
+    </button>
+  </div>
+</div>
 
   <!-- Script -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>

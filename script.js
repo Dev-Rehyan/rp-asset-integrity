@@ -417,15 +417,55 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================================================= */
 const EMAILJS_SERVICE_ID = "service_5jox238";
 const EMAILJS_TEMPLATE_ID = "template_rhmp061";
-// Use ONE EmailJS template for callback, enquiry and booking
 
-function handleEmailForm(formId, popup, successMessage) {
+const successPopup = document.getElementById("successPopup");
+const successMessage = document.getElementById("successMessage");
+const closeSuccessPopup = document.getElementById("closeSuccessPopup");
+
+function showSuccessPopup(message) {
+  if (!successPopup || !successMessage) return;
+
+  successMessage.textContent = message;
+  successPopup.classList.add("active");
+  lockPageScroll();
+}
+
+if (closeSuccessPopup && successPopup) {
+  closeSuccessPopup.addEventListener("click", () => {
+    successPopup.classList.remove("active");
+    unlockPageScroll();
+  });
+}
+
+if (successPopup) {
+  successPopup.addEventListener("click", (e) => {
+    if (e.target === successPopup) {
+      successPopup.classList.remove("active");
+      unlockPageScroll();
+    }
+  });
+}
+
+function handleEmailForm(formId, popup, successText) {
   const form = document.getElementById(formId);
 
   if (!form) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    const spamField = form.querySelector('input[name="website"]');
+
+    if (spamField && spamField.value.trim() !== "") {
+      return;
+    }
+
+    const consentBox = form.querySelector('input[name="consent"]');
+
+    if (consentBox && !consentBox.checked) {
+      alert("Please confirm you agree to us storing your details so we can respond to your enquiry.");
+      return;
+    }
 
     const submitButton = form.querySelector("button[type='submit']");
     const originalText = submitButton ? submitButton.textContent : "";
@@ -442,12 +482,13 @@ function handleEmailForm(formId, popup, successMessage) {
         form
       );
 
-      alert(successMessage);
       form.reset();
 
       if (popup) {
         closePopup(popup);
       }
+
+      showSuccessPopup(successText);
     } catch (error) {
       console.error(`${formId} failed:`, error);
       alert("Sorry, something went wrong. Please try again or email us directly.");
@@ -463,19 +504,19 @@ function handleEmailForm(formId, popup, successMessage) {
 handleEmailForm(
   "callbackForm",
   callbackPopup,
-  "Thank you. Your call back request has been sent."
+  "Thank you. Your call back request has been sent. We will contact you soon."
 );
 
 handleEmailForm(
   "enquiryForm",
   enquiryPopup,
-  "Thank you. Your enquiry has been sent."
+  "Thank you. Your enquiry has been sent. We will get back to you soon."
 );
 
 handleEmailForm(
   "bookingForm",
   bookingPopup,
-  "Thank you. Your booking request has been sent."
+  "Thank you. Your booking request has been sent. We will contact you to confirm the details."
 );
 
   /* =========================================================
@@ -517,31 +558,47 @@ handleEmailForm(
   }
 
   if (reviewForm && reviewPopup) {
-    reviewForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
+  reviewForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      try {
-        await emailjs.sendForm(
-          "service_5jox238",
-          "template_tptkxqh",
-          reviewForm
-        );
+    const submitButton = reviewForm.querySelector("button[type='submit']");
+    const originalText = submitButton ? submitButton.textContent : "";
 
-        alert("Thank you for your review.");
-        reviewForm.reset();
+    if (submitButton) {
+      submitButton.textContent = "Sending...";
+      submitButton.disabled = true;
+    }
 
-        if (dateInput) {
-          const today = new Date().toISOString().split("T")[0];
-          dateInput.value = today;
-        }
+    try {
+      await emailjs.sendForm(
+        "service_5jox238",
+        "template_tptkxqh",
+        reviewForm
+      );
 
-        closePopup(reviewPopup);
-      } catch (error) {
-        console.error("Review submission failed:", error);
-        alert("Sorry, something went wrong. Please try again.");
+      reviewForm.reset();
+
+      if (dateInput) {
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.value = today;
       }
-    });
-  }
+
+      closePopup(reviewPopup);
+
+      showSuccessPopup(
+        "Thank you for leaving a review. Your feedback has been submitted successfully."
+      );
+    } catch (error) {
+      console.error("Review submission failed:", error);
+      alert("Sorry, something went wrong. Please try again.");
+    } finally {
+      if (submitButton) {
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+      }
+    }
+  });
+}
 
   /* =========================================================
      ESC KEY CLOSE
