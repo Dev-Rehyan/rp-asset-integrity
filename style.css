@@ -2077,3 +2077,16 @@ a {
     font-size: 1rem;
   }
 }
+
+@media (max-width: 640px) {
+  #callbackPopup .site-popup-box h2 {
+    font-size: 1.85rem;
+    line-height: 1.15;
+    padding-right: 70px;
+    max-width: 100%;
+  }
+
+  #callbackPopup .site-popup-box {
+    overflow: hidden;
+  }
+}
