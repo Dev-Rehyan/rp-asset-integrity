@@ -2040,3 +2040,40 @@ a {
     padding: 26px 18px;
   }
 }
+
+@media (max-width: 640px) {
+  .site-popup-box,
+  .review-popup-box {
+    width: calc(100% - 24px);
+    max-width: 100%;
+    padding: 26px 18px 24px;
+    overflow: hidden;
+  }
+
+  .site-popup-box h2,
+  .review-popup-box h2 {
+    font-size: 2rem;
+    line-height: 1.15;
+    padding-right: 60px;
+    word-break: normal;
+  }
+
+  .site-popup-close,
+  .review-close {
+    width: 46px;
+    height: 46px;
+    top: 14px;
+    right: 14px;
+    font-size: 26px;
+    z-index: 2;
+  }
+
+  .review-popup-box input[type="date"] {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    font-size: 1rem;
+  }
+}
