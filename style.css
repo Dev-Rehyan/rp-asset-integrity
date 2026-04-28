@@ -406,7 +406,7 @@ a {
 .hero-image {
   position: absolute;
   inset: 0;
-  background-image: url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1800&auto=format&fit=crop");
+  background-image: url("assets/photos/ChatGPT Image Apr 28, 2026, 11_20_13 AM.png");
   background-size: cover;
   background-position: center;
 }
