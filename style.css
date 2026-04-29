@@ -2090,3 +2090,40 @@ a {
     overflow: hidden;
   }
 }
+
+
+/* Retainer Enquire Now hover */
+.retainer-box .service-link-btn {
+  color: var(--gold);
+}
+
+.retainer-box .service-link-btn:hover {
+  color: var(--white);
+  transform: translateX(3px);
+}
+
+/* Core service links hover and shift */
+.card-body a,
+.service-card .card-body a {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.card-body a:hover,
+.service-card .card-body a:hover {
+  color: var(--navy-dark);
+  transform: translateX(3px);
+}
+
+/* Shift hero image RIGHT on tablet */
+@media (max-width: 900px) {
+  .hero-image {
+    background-position: 70% center;
+  }
+}
+
+/* Shift more RIGHT on mobile */
+@media (max-width: 640px) {
+  .hero-image {
+    background-position: 70% center;
+  }
+}
