@@ -2153,3 +2153,84 @@ a {
 .menu-toggle:hover span {
   background: var(--gold);
 }
+
+
+/* =========================================================
+  TIGHTER NAVBAR SPACING
+========================================================= */
+
+.header-inner {
+  padding: 0;
+  min-height: 73px;
+}
+
+.logo {
+  margin-left: 6px;
+}
+
+.logo-img {
+  height: 52px;
+}
+
+.menu-toggle {
+  width: 54px;
+  height: 38px;
+  margin-left: 2px;
+}
+
+.main-nav {
+  top: 66px;
+  height: calc(100vh - 66px);
+}
+
+.main-nav a,
+.main-nav a.nav-link {
+  padding: 8px 0;
+  font-size: 0.92rem;
+}
+
+.main-nav ul {
+  gap: 0;
+}
+
+.main-nav a {
+  border-bottom: 1px solid #e3e7ec;
+}
+
+/* =========================================================
+   My BNI CONTACT PAGE
+========================================================= */
+.bni-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.bni-contact-card {
+  background: var(--off-white);
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  padding: 22px;
+}
+
+.bni-contact-card h3 {
+  color: var(--navy-dark);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 12px;
+}
+
+.bni-contact-card p {
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.bni-contact-card a {
+  color: var(--gold-dark);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .bni-contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
