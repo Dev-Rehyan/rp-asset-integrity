@@ -2198,30 +2198,51 @@ a {
 }
 
 /* =========================================================
-   My BNI CONTACT PAGE
+   MY BNI PAGE
 ========================================================= */
+
+.bni-search {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 20px 0 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.bni-search:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(182, 148, 75, 0.14);
+}
+
 .bni-contact-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 22px;
 }
 
 .bni-contact-card {
   background: var(--off-white);
-  border-left: 4px solid var(--gold);
+  border-left: 5px solid var(--gold);
   border-radius: 8px;
-  padding: 22px;
+  padding: 24px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
 }
 
 .bni-contact-card h3 {
-  color: var(--navy-dark);
   font-family: "Montserrat", sans-serif;
-  margin-bottom: 12px;
+  color: var(--navy-dark);
+  font-size: 1.3rem;
+  margin-bottom: 14px;
 }
 
 .bni-contact-card p {
   color: var(--muted);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  line-height: 1.5;
+  word-break: break-word;
 }
 
 .bni-contact-card a {
@@ -2229,8 +2250,51 @@ a {
   font-weight: 700;
 }
 
+/* =========================================================
+   MY BNI PAGE RESPONSIVE
+========================================================= */
+
 @media (max-width: 768px) {
+  .policy-section {
+    padding: 40px 0;
+  }
+
+  .policy-card {
+    width: calc(100% - 24px);
+    padding: 26px 18px;
+    border-radius: 12px;
+  }
+
+  .policy-intro {
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
   .bni-contact-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .bni-contact-card {
+    padding: 20px 18px;
+  }
+
+  .bni-contact-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .bni-contact-card p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .policy-card h2 {
+    font-size: 1.75rem;
+    line-height: 1.25;
+  }
+
+  .bni-contact-card {
+    padding: 18px 16px;
   }
 }

@@ -612,3 +612,32 @@ handleEmailForm(
     }
   });
 });
+
+
+/* =========================================================
+   BNI CONTACT SEARCH
+========================================================= */
+const bniSearch = document.getElementById("bniSearch");
+const bniCards = document.querySelectorAll(".bni-contact-card");
+
+if (bniSearch && bniCards.length) {
+  bniSearch.addEventListener("input", () => {
+    const searchValue = bniSearch.value.toLowerCase().trim();
+
+    bniCards.forEach((card) => {
+      const business = card.dataset.business.toLowerCase();
+      const category = card.dataset.category.toLowerCase();
+      const cardText = card.textContent.toLowerCase();
+
+      if (
+        business.includes(searchValue) ||
+        category.includes(searchValue) ||
+        cardText.includes(searchValue)
+      ) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  });
+}

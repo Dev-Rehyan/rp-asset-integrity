@@ -10,11 +10,7 @@
 
   <title>My BNI | RP Asset Integrity</title>
 
-  <link
-    rel="icon"
-    type="image/png"
-    href="assets/photos/Screenshot 2026-05-05 at 12.55.05.png"
-  />
+  <link rel="icon" type="image/png" href="assets/photos/Screenshot 2026-05-05 at 12.55.05.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -78,29 +74,29 @@
         <p class="section-label light-label">Networking and Referrals</p>
         <h1>My BNI</h1>
         <p class="policy-date">
-          RP Asset Integrity referral information and business profile.
+          RP Asset Integrity referral information and useful business contacts.
         </p>
       </div>
     </section>
 
-    <section class="policy-section">
+    <!-- <section class="policy-section">
       <div class="container">
         <div class="policy-card">
           <p class="policy-intro">
-            Use this page to add your BNI profile, referral requests, ideal clients, services, and contact details.
+            Use this page to keep your BNI profile, referral requests, ideal clients, services, and useful contact details in one place.
           </p>
 
           <div class="policy-block">
             <h2>About RP Asset Integrity</h2>
             <p>
-              RP Asset Integrity provides property maintenance and compliance support for landlords, letting agents, and property owners.
+              RP Asset Integrity provides property maintenance and compliance support for landlords, letting agents, property investors, and property owners.
             </p>
           </div>
 
           <div class="policy-block">
             <h2>What We Are Looking For</h2>
             <p>
-              We are looking to connect with landlords, letting agents, property investors, estate agents, and businesses that need reliable property maintenance and compliance support.
+              We are looking to connect with landlords, letting agents, estate agents, property investors, and businesses that need reliable property maintenance and compliance support.
             </p>
           </div>
 
@@ -116,65 +112,92 @@
             <p>
               Phone: <a href="tel:+442039180504">02039180504</a><br />
               Email: <a href="mailto:rehyan@rpassetintegrity.com">rehyan@rpassetintegrity.com</a><br />
-              Website: <a href="https://rpassetintegrity.com" target="_blank">rpassetintegrity.com</a>
+              Website: <a href="https://rpassetintegrity.com" target="_blank" rel="noopener noreferrer">rpassetintegrity.com</a>
             </p>
           </div>
-
-
-          <section class="policy-section">
-  <div class="container">
-    <div class="policy-card">
-      <p class="section-label">BNI Contacts</p>
-      <h2>My BNI Contact List</h2>
-      <p class="policy-intro">
-        Add useful BNI contacts here so their details are easy to find.
-      </p>
-
-      <div class="bni-contact-grid">
-        <div class="bni-contact-card">
-          <h3>Contact Name</h3>
-          <p><strong>Business:</strong> Business Name</p>
-          <p><strong>Category:</strong> Trade or Service</p>
-          <p><strong>Phone:</strong> <a href="tel:">Add phone number</a></p>
-          <p><strong>Email:</strong> <a href="mailto:">Add email address</a></p>
-          <p><strong>Website:</strong> <a href="#" target="_blank">Add website</a></p>
-          <p><strong>Notes:</strong> Add referral notes here.</p>
         </div>
-
-        <div class="bni-contact-card">
-          <h3>Contact Name</h3>
-          <p><strong>Business:</strong> Business Name</p>
-          <p><strong>Category:</strong> Trade or Service</p>
-          <p><strong>Phone:</strong> <a href="tel:">Add phone number</a></p>
-          <p><strong>Email:</strong> <a href="mailto:">Add email address</a></p>
-          <p><strong>Website:</strong> <a href="#" target="_blank">Add website</a></p>
-          <p><strong>Notes:</strong> Add referral notes here.</p>
-        </div>
-
-        <div class="bni-contact-card">
-          <h3>Contact Name</h3>
-          <p><strong>Business:</strong> Business Name</p>
-          <p><strong>Category:</strong> Trade or Service</p>
-          <p><strong>Phone:</strong> <a href="tel:">Add phone number</a></p>
-          <p><strong>Email:</strong> <a href="mailto:">Add email address</a></p>
-          <p><strong>Website:</strong> <a href="#" target="_blank">Add website</a></p>
-          <p><strong>Notes:</strong> Add referral notes here.</p>
-        </div>
-
-                <div class="bni-contact-card">
-          <h3>Contact Name</h3>
-          <p><strong>Business:</strong> Business Name</p>
-          <p><strong>Category:</strong> Trade or Service</p>
-          <p><strong>Phone:</strong> <a href="tel:">Add phone number</a></p>
-          <p><strong>Email:</strong> <a href="mailto:">Add email address</a></p>
-          <p><strong>Website:</strong> <a href="#" target="_blank">Add website</a></p>
-          <p><strong>Notes:</strong> Add referral notes here.</p>
-        </div>
-        
       </div>
-    </div>
-  </div>
-</section>
+    </section> -->
+
+    <section class="policy-section">
+      <div class="container">
+        <div class="policy-card">
+          <p class="section-label">BNI Contacts</p>
+          <h2>My BNI Contact List</h2>
+          <!-- <p class="policy-intro">
+            Add useful BNI contacts here so their details are easy to find.
+          </p> -->
+
+          <input
+            type="text"
+            id="bniSearch"
+            class="bni-search"
+            placeholder="Search by business, name, category or service..."
+          />
+
+          <div class="bni-contact-grid">
+
+            <div class="bni-contact-card" data-business="Business Name" data-category="Trade or Service">
+              <h3>Contact Name</h3>
+              <p><strong>Business:</strong> Business Name</p>
+              <p><strong>Category:</strong> Trade or Service</p>
+              <p><strong>Phone:</strong> <a href="tel:">Add phone number</a></p>
+              <p><strong>Email:</strong> <a href="mailto:">Add email address</a></p>
+              <p><strong>Website:</strong> <a href="#" target="_blank" rel="noopener noreferrer">Add website</a></p>
+              <p><strong>Notes:</strong> Add referral notes here.</p>
+            </div>
+
+            <div class="bni-contact-card" data-business="Business Name" data-category="Trade or Service">
+              <h3>Contact Name</h3>
+              <p><strong>Business:</strong> Business Name</p>
+              <p><strong>Category:</strong> Trade or Service</p>
+              <p><strong>Phone:</strong> <a href="tel:">Add phone number</a></p>
+              <p><strong>Email:</strong> <a href="mailto:">Add email address</a></p>
+              <p><strong>Website:</strong> <a href="#" target="_blank" rel="noopener noreferrer">Add website</a></p>
+              <p><strong>Notes:</strong> Add referral notes here.</p>
+            </div>
+
+            <div class="bni-contact-card" data-business="Business Name" data-category="Trade or Service">
+              <h3>Contact Name</h3>
+              <p><strong>Business:</strong> Business Name</p>
+              <p><strong>Category:</strong> Trade or Service</p>
+              <p><strong>Phone:</strong> <a href="tel:">Add phone number</a></p>
+              <p><strong>Email:</strong> <a href="mailto:">Add email address</a></p>
+              <p><strong>Website:</strong> <a href="#" target="_blank" rel="noopener noreferrer">Add website</a></p>
+              <p><strong>Notes:</strong> Add referral notes here.</p>
+            </div>
+
+            <div class="bni-contact-card" data-business="Business Name" data-category="Trade or Service">
+              <h3>Contact Name</h3>
+              <p><strong>Business:</strong> Business Name</p>
+              <p><strong>Category:</strong> Trade or Service</p>
+              <p><strong>Phone:</strong> <a href="tel:">Add phone number</a></p>
+              <p><strong>Email:</strong> <a href="mailto:">Add email address</a></p>
+              <p><strong>Website:</strong> <a href="#" target="_blank" rel="noopener noreferrer">Add website</a></p>
+              <p><strong>Notes:</strong> Add referral notes here.</p>
+            </div>
+
+            <div class="bni-contact-card" data-business="Business Name" data-category="Trade or Service">
+              <h3>Contact Name</h3>
+              <p><strong>Business:</strong> Business Name</p>
+              <p><strong>Category:</strong> Trade or Service</p>
+              <p><strong>Phone:</strong> <a href="tel:">Add phone number</a></p>
+              <p><strong>Email:</strong> <a href="mailto:">Add email address</a></p>
+              <p><strong>Website:</strong> <a href="#" target="_blank" rel="noopener noreferrer">Add website</a></p>
+              <p><strong>Notes:</strong> Add referral notes here.</p>
+            </div>
+
+            <div class="bni-contact-card" data-business="Business Name" data-category="Trade or Service">
+              <h3>Contact Name</h3>
+              <p><strong>Business:</strong> Business Name</p>
+              <p><strong>Category:</strong> Trade or Service</p>
+              <p><strong>Phone:</strong> <a href="tel:">Add phone number</a></p>
+              <p><strong>Email:</strong> <a href="mailto:">Add email address</a></p>
+              <p><strong>Website:</strong> <a href="#" target="_blank" rel="noopener noreferrer">Add website</a></p>
+              <p><strong>Notes:</strong> Add referral notes here.</p>
+            </div>
+
+          </div>
 
           <div class="policy-back">
             <a href="index.html" class="btn btn-gold small-btn">Back to Home</a>
