@@ -159,7 +159,7 @@ a {
   min-width: 0;
   overflow: hidden;
   text-decoration: none;
-  margin-left: -16px;
+  margin-left: 16px;
 }
 
 .logo-img {
@@ -233,7 +233,7 @@ a {
 ========================================================= */
 .menu-toggle {
   display: flex;
-  width: 46px;
+  width: 88px;
   height: 46px;
   border: none;
   background: transparent;
@@ -2126,4 +2126,30 @@ a {
   .hero-image {
     background-position: 70% center;
   }
+}
+
+
+
+/* =========================================================
+   NAVY HEADER
+========================================================= */
+.site-header {
+  background: var(--navy-dark);
+  border-bottom: 2px solid var(--gold);
+}
+
+.logo-text h2 {
+  color: var(--white);
+}
+
+.logo-text p {
+  color: var(--gold);
+}
+
+.menu-toggle span {
+  background: var(--white);
+}
+
+.menu-toggle:hover span {
+  background: var(--gold);
 }
