@@ -2251,6 +2251,40 @@ a {
 }
 
 /* =========================================================
+   BNI INTRO & JOIN SECTION
+========================================================= */
+
+.bni-intro {
+  max-width: 850px;
+  margin: 14px 0 28px;
+  text-align: left;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.bni-intro p {
+  margin-bottom: 14px;
+}
+
+.bni-join-section {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.bni-join-section p {
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.bni-join-section .btn {
+  display: inline-block;
+}
+
+/* =========================================================
    MY BNI PAGE RESPONSIVE
 ========================================================= */
 
