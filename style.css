@@ -2238,16 +2238,15 @@ a {
   margin-bottom: 14px;
 }
 
-.bni-contact-card p {
-  color: var(--muted);
-  margin-bottom: 10px;
-  line-height: 1.5;
-  word-break: break-word;
-}
-
 .bni-contact-card a {
   color: var(--gold-dark);
   font-weight: 700;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.bni-contact-card p {
+  overflow-wrap: break-word;
 }
 
 /* =========================================================
@@ -2283,6 +2282,7 @@ a {
 .bni-join-section .btn {
   display: inline-block;
 }
+
 
 /* =========================================================
    MY BNI PAGE RESPONSIVE
@@ -2330,5 +2330,12 @@ a {
 
   .bni-contact-card {
     padding: 18px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bni-contact-card a[href^="mailto:"] {
+    font-size: 0.8rem;
+    line-height: 1.4;
   }
 }
