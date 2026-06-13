@@ -2280,7 +2280,11 @@ a {
 }
 
 .bni-join-section .btn {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.2;
 }
 
 
@@ -2294,7 +2298,7 @@ a {
   }
 
   .policy-card {
-    width: calc(100% - 24px);
+    width: 100%;
     padding: 26px 18px;
     border-radius: 12px;
   }
@@ -2335,7 +2339,14 @@ a {
 
 @media (max-width: 768px) {
   .bni-contact-card a[href^="mailto:"] {
-    font-size: 0.8rem;
+    font-size: 0.79rem;
     line-height: 1.4;
+  }
+}
+
+@media (max-width: 768px) {
+  .policy-card {
+    width: 100%;
+    padding: 26px 14px;
   }
 }
