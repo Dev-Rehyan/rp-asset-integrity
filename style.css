@@ -2350,3 +2350,41 @@ a {
     padding: 26px 14px;
   }
 }
+
+
+
+/* Reviews page layout fix */
+.reviews-grid {
+  display: block;
+  columns: 3;
+  column-gap: 30px;
+}
+
+.reviews-grid .review-card {
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  margin-bottom: 30px;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  box-sizing: border-box;
+}
+
+.reviews-grid .review-card .review-text {
+  flex: 0 0 auto;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .reviews-grid {
+    columns: 2;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .reviews-grid {
+    columns: 1;
+  }
+}
