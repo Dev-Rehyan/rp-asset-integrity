@@ -2356,7 +2356,7 @@ a {
 /* Reviews page layout fix */
 .reviews-grid {
   display: block;
-  columns: 3;
+  columns: 2;
   column-gap: 30px;
 }
 
@@ -2378,7 +2378,7 @@ a {
 /* Tablet */
 @media (max-width: 900px) {
   .reviews-grid {
-    columns: 2;
+    columns: 3;
   }
 }
 
